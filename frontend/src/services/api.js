@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Configuración base de axios
 const API = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: 'https://trueqq-backend.onrender.com/api'
   headers: {
     'Content-Type': 'application/json',
   },
