@@ -16,3 +16,4 @@ API.interceptors.request.use((config) => {
 });
 
 export default API;
+// v1.0.1
