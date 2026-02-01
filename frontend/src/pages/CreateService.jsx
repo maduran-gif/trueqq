@@ -5,6 +5,19 @@ import { createService, getCommunities } from '../services/api';
 import Navbar from '../components/Navbar';
 import { ArrowLeft, Plus } from 'lucide-react';
 
+const CATEGORIES = [
+  'Fitness & Bienestar',
+  'Transporte & Logística',
+  'Hogar & Construcción',
+  'Cocina & Alimentos',
+  'Tecnología & Digital',
+  'Arte, Diseño & Manualidades',
+  'Educación & Cuidado',
+  'Estilo & Imagen',
+  'Experiencias & Ocio',
+  'Administrativo & Oficina'
+];
+
 export default function CreateService() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -56,6 +69,12 @@ export default function CreateService() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const selectStyle = {
+    WebkitAppearance: 'auto',
+    appearance: 'auto',
+    backgroundColor: 'white'
   };
 
   return (
@@ -113,15 +132,21 @@ export default function CreateService() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Categoría *
                 </label>
-                <input
-                  type="text"
+                <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  placeholder="Ej: Deportes, Educación, etc."
+                  style={selectStyle}
                   required
-                />
+                >
+                  <option value="">Todas las categorías</option>
+                  {CATEGORIES.map(category => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -150,6 +175,7 @@ export default function CreateService() {
                 value={formData.community}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                style={selectStyle}
                 required
               >
                 <option value="">Selecciona una comunidad</option>
