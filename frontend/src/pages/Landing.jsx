@@ -31,7 +31,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-brand-600 via-brand-500 to-blue-500 text-white py-24 px-4">
+      <section className="text-white py-24 px-4" style={{ backgroundColor: "#0097b2" }}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-6 leading-tight">
             Intercambia servicios.<br />
