@@ -88,11 +88,6 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg text-sm">
-          <p className="font-semibold mb-2 text-blue-900">Usuarios de prueba:</p>
-          <p className="text-blue-700">• maria@trueqq.com - 123456</p>
-          <p className="text-blue-700">• carlos@trueqq.com - 123456</p>
-        </div>
       </div>
     </div>
   );
