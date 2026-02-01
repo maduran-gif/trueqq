@@ -152,13 +152,13 @@ export default function Home() {
             {appliedSearch && (
               <span className="inline-flex items-center gap-1 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm">
                 🔍 "{appliedSearch}"
-                <button onClick={handleClear} className="hover:text-purple-900"><X size={14} /></button>
+                <button onClick={handleClear} className="hover:text-brand-700"><X size={14} /></button>
               </span>
             )}
             {selectedCategory && (
               <span className="inline-flex items-center gap-1 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm">
                 📂 {selectedCategory}
-                <button onClick={() => setSelectedCategory('')} className="hover:text-purple-900"><X size={14} /></button>
+                <button onClick={() => setSelectedCategory('')} className="hover:text-brand-700"><X size={14} /></button>
               </span>
             )}
             <button
