@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { createService, getCommunities } from '../services/api';
+import { createService } from '../services/api';
 import Navbar from '../components/Navbar';
 import { ArrowLeft, Plus } from 'lucide-react';
 
@@ -21,29 +21,14 @@ const CATEGORIES = [
 export default function CreateService() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [communities, setCommunities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     category: '',
-    trueqqPrice: '',
-    community: ''
+    trueqqPrice: ''
   });
-
-  useEffect(() => {
-    loadCommunities();
-  }, []);
-
-  const loadCommunities = async () => {
-    try {
-      const response = await getCommunities();
-      setCommunities(response.data.data);
-    } catch (error) {
-      console.error('Error al cargar comunidades:', error);
-    }
-  };
 
   const handleChange = (e) => {
     setFormData({
@@ -62,19 +47,12 @@ export default function CreateService() {
         ...formData,
         trueqqPrice: Number(formData.trueqqPrice)
       });
-
       navigate('/');
     } catch (error) {
       setError(error.response?.data?.message || 'Error al crear servicio');
     } finally {
       setLoading(false);
     }
-  };
-
-  const selectStyle = {
-    WebkitAppearance: 'auto',
-    appearance: 'auto',
-    backgroundColor: 'white'
   };
 
   return (
@@ -97,6 +75,7 @@ export default function CreateService() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Título */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Título del Servicio *
@@ -112,6 +91,7 @@ export default function CreateService() {
               />
             </div>
 
+            {/* Descripción */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Descripción *
@@ -120,13 +100,23 @@ export default function CreateService() {
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                rows="4"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                placeholder="Describe tu servicio en detalle..."
+                rows="6"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                placeholder={`Cuéntanos en detalle sobre lo que ofreces. Mientras más clara sea tu descripción, más personas se interesarán en ti.
+
+Por ejemplo, podrías mencionar:
+• ¿En qué te especializas y cuánta experiencia tienes?
+• ¿A quién le encajaría este servicio?
+• ¿Es presencial, virtual o a domicilio?
+• ¿Cuánto dura cada sesión o entrega?
+• ¿Qué necesita saber el cliente antes de pedirte?
+
+Un buen servicio publicado es el primer paso para conectar con alguien que te necesite.`}
                 required
               />
             </div>
 
+            {/* Categoría y Precio */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -136,11 +126,23 @@ export default function CreateService() {
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  style={selectStyle}
                   required
+                  style={{
+                    WebkitAppearance: 'auto',
+                    appearance: 'auto',
+                    backgroundColor: 'white',
+                    height: '50px',
+                    width: '100%',
+                    paddingLeft: '16px',
+                    paddingRight: '16px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
                 >
-                  <option value="">Todas las categorías</option>
+                  <option value="">Selecciona una categoría</option>
                   {CATEGORIES.map(category => (
                     <option key={category} value={category}>
                       {category}
@@ -166,33 +168,14 @@ export default function CreateService() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Comunidad *
-              </label>
-              <select
-                name="community"
-                value={formData.community}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                style={selectStyle}
-                required
-              >
-                <option value="">Selecciona una comunidad</option>
-                {communities.map(community => (
-                  <option key={community._id} value={community._id}>
-                    {community.icon} {community.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
+            {/* Error */}
             {error && (
               <div className="bg-red-50 text-red-600 p-4 rounded-lg">
                 {error}
               </div>
             )}
 
+            {/* Botones */}
             <div className="flex gap-4">
               <button
                 type="button"
