@@ -56,7 +56,7 @@ export default function Register() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500" style={{ WebkitAppearance: "auto", appearance: "auto", backgroundColor: "white", height: "50px", paddingLeft: "16px", paddingRight: "16px", fontSize: "16px" }}
               placeholder="Tu nombre"
               required
             />
@@ -71,7 +71,7 @@ export default function Register() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500" style={{ WebkitAppearance: "auto", appearance: "auto", backgroundColor: "white", height: "50px", paddingLeft: "16px", paddingRight: "16px", fontSize: "16px" }}
               placeholder="tu@email.com"
               required
             />
@@ -86,7 +86,7 @@ export default function Register() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500" style={{ WebkitAppearance: "auto", appearance: "auto", backgroundColor: "white", height: "50px", paddingLeft: "16px", paddingRight: "16px", fontSize: "16px" }}
               placeholder="Mínimo 6 caracteres"
               required
               minLength={6}
@@ -101,7 +101,7 @@ export default function Register() {
               name="accountType"
               value={formData.accountType}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500" style={{ WebkitAppearance: "auto", appearance: "auto", backgroundColor: "white", height: "50px", paddingLeft: "16px", paddingRight: "16px", fontSize: "16px" }}
             >
               <option value="free">Free (0 Trueqqs - 3 transacciones/mes)</option>
               <option value="freemium">Freemium (500 Trueqqs gratis)</option>
