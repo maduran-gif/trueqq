@@ -42,7 +42,7 @@ export default function Profile() {
     const badges = {
       free: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Free' },
       freemium: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Freemium' },
-      premium: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'Premium' }
+      premium: { bg: 'bg-brand-100', text: 'text-brand-700', label: 'Premium' }
     };
     return badges[accountType] || badges.free;
   };
@@ -64,12 +64,12 @@ export default function Profile() {
 
         {/* Profile Header */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
-          <div className="bg-gradient-to-r from-purple-600 to-blue-500 h-32"></div>
+          <div className="bg-gradient-to-r from-brand-600 to-blue-500 h-32"></div>
           <div className="px-8 pb-8">
             <div className="flex items-end gap-6 -mt-16">
               <div className="bg-white p-2 rounded-2xl shadow-lg">
-                <div className="bg-purple-100 p-6 rounded-xl">
-                  <User size={64} className="text-purple-600" />
+                <div className="bg-brand-100 p-6 rounded-xl">
+                  <User size={64} className="text-brand-600" />
                 </div>
               </div>
               <div className="flex-1 pb-2">
@@ -92,8 +92,8 @@ export default function Profile() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-md p-6">
             <div className="flex items-center gap-4">
-              <div className="bg-purple-100 p-3 rounded-lg">
-                <Briefcase size={24} className="text-purple-600" />
+              <div className="bg-brand-100 p-3 rounded-lg">
+                <Briefcase size={24} className="text-brand-600" />
               </div>
               <div>
                 <p className="text-3xl font-bold text-gray-900">{myServices.length}</p>
@@ -135,14 +135,14 @@ export default function Profile() {
 
           {loading ? (
             <div className="p-12 text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
             </div>
           ) : myServices.length === 0 ? (
             <div className="p-12 text-center">
               <p className="text-gray-600 text-lg mb-4">No has publicado servicios aún</p>
               <button
                 onClick={() => navigate('/create-service')}
-                className="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700"
+                className="bg-brand-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-700"
               >
                 Publicar mi primer servicio
               </button>
@@ -164,7 +164,7 @@ export default function Profile() {
                           {service.category}
                         </span>
                         {service.community && (
-                          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                          <span className="text-xs bg-brand-100 text-brand-700 px-2 py-1 rounded">
                             {service.community.icon} {service.community.name}
                           </span>
                         )}
@@ -178,7 +178,7 @@ export default function Profile() {
                       </div>
                     </div>
                     <div className="text-right ml-4">
-                      <p className="text-2xl font-bold text-purple-600">{service.trueqqPrice}</p>
+                      <p className="text-2xl font-bold text-brand-600">{service.trueqqPrice}</p>
                       <p className="text-sm text-gray-500">Trueqqs</p>
                       <p className="text-xs text-gray-500 mt-2">
                         {service.timesRequested} veces solicitado

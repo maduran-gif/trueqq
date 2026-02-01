@@ -85,7 +85,7 @@ export default function CreateService() {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                 placeholder="Ej: Clases de Yoga para principiantes"
                 required
               />
@@ -101,7 +101,7 @@ export default function CreateService() {
                 value={formData.description}
                 onChange={handleChange}
                 rows="6"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
                 placeholder={`Cuéntanos en detalle sobre lo que ofreces. Mientras más clara sea tu descripción, más personas se interesarán en ti.
 
 Por ejemplo, podrías mencionar:
@@ -161,7 +161,7 @@ Un buen servicio publicado es el primer paso para conectar con alguien que te ne
                   value={formData.trueqqPrice}
                   onChange={handleChange}
                   min="1"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                   placeholder="50"
                   required
                 />
@@ -187,7 +187,7 @@ Un buen servicio publicado es el primer paso para conectar con alguien que te ne
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-brand-600 text-white py-3 rounded-lg font-semibold hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? (
                   'Publicando...'

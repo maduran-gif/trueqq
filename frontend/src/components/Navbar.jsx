@@ -12,7 +12,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-purple-600 text-white shadow-lg">
+    <nav className="bg-brand-600 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -23,7 +23,7 @@ export default function Navbar() {
           {/* Right side */}
           <div className="flex items-center gap-4">
             {/* Balance */}
-            <div className="flex items-center gap-2 bg-purple-700 px-4 py-2 rounded-lg">
+            <div className="flex items-center gap-2 bg-brand-700 px-4 py-2 rounded-lg">
               <Wallet size={20} />
               <span className="font-semibold">{user?.trueqqBalance || 0} Trueqqs</span>
             </div>
@@ -32,7 +32,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Link 
                 to="/profile"
-                className="flex items-center gap-2 hover:bg-purple-700 px-3 py-2 rounded-lg transition-colors"
+                className="flex items-center gap-2 hover:bg-brand-700 px-3 py-2 rounded-lg transition-colors"
               >
                 <User size={20} />
                 <span>{user?.name}</span>
@@ -40,7 +40,7 @@ export default function Navbar() {
 
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 hover:bg-purple-700 px-3 py-2 rounded-lg transition-colors"
+                className="flex items-center gap-2 hover:bg-brand-700 px-3 py-2 rounded-lg transition-colors"
               >
                 <LogOut size={20} />
               </button>

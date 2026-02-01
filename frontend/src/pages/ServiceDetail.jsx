@@ -62,7 +62,7 @@ export default function ServiceDetail() {
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
         </div>
       </div>
     );
@@ -96,11 +96,11 @@ export default function ServiceDetail() {
 
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-8">
+          <div className="bg-gradient-to-r from-brand-600 to-blue-500 text-white p-8">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <h1 className="text-3xl font-bold mb-2">{service.title}</h1>
-                <div className="flex items-center gap-4 text-purple-100">
+                <div className="flex items-center gap-4 text-brand-100">
                   <div className="flex items-center gap-1">
                     <Star size={18} className="fill-yellow-300 text-yellow-300" />
                     <span className="font-semibold">{service.rating}</span>
@@ -115,7 +115,7 @@ export default function ServiceDetail() {
                   )}
                 </div>
               </div>
-              <div className="bg-white text-purple-600 px-6 py-3 rounded-full">
+              <div className="bg-white text-brand-600 px-6 py-3 rounded-full">
                 <span className="text-2xl font-bold">{service.trueqqPrice}</span>
                 <span className="text-sm ml-1">Trueqqs</span>
               </div>
@@ -134,13 +134,13 @@ export default function ServiceDetail() {
             <div className="mb-8 p-6 bg-gray-50 rounded-xl">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Proveedor</h2>
               <div className="flex items-center gap-4">
-                <div className="bg-purple-100 p-3 rounded-full">
-                  <User size={24} className="text-purple-600" />
+                <div className="bg-brand-100 p-3 rounded-full">
+                  <User size={24} className="text-brand-600" />
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">{service.provider.name}</p>
                   <p className="text-sm text-gray-600">{service.provider.email}</p>
-                  <span className="inline-block mt-1 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                  <span className="inline-block mt-1 text-xs bg-brand-100 text-brand-700 px-2 py-1 rounded">
                     {service.provider.accountType}
                   </span>
                 </div>
@@ -185,7 +185,7 @@ export default function ServiceDetail() {
               <button
                 onClick={handleRequest}
                 disabled={requesting}
-                className="w-full bg-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full bg-brand-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {requesting ? 'Solicitando...' : `Solicitar Servicio (${service.trueqqPrice} Trueqqs)`}
               </button>

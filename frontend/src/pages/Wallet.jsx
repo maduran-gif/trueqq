@@ -54,16 +54,16 @@ export default function Wallet() {
         </button>
 
         {/* Balance Card */}
-        <div className="bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-2xl shadow-lg p-8 mb-8">
+        <div className="bg-gradient-to-r from-brand-600 to-blue-500 text-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-purple-100 mb-2">Saldo Disponible</p>
+              <p className="text-brand-100 mb-2">Saldo Disponible</p>
               <p className="text-5xl font-bold mb-4">{user?.trueqqBalance || 0} Trueqqs</p>
               <div className="flex items-center gap-3">
                 <span className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
                   {user?.accountType}
                 </span>
-                <span className="text-purple-100 text-sm">
+                <span className="text-brand-100 text-sm">
                   {user?.name}
                 </span>
               </div>
@@ -81,7 +81,7 @@ export default function Wallet() {
               onClick={() => setFilter('all')}
               className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
                 filter === 'all'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -91,7 +91,7 @@ export default function Wallet() {
               onClick={() => setFilter('sent')}
               className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
                 filter === 'sent'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -101,7 +101,7 @@ export default function Wallet() {
               onClick={() => setFilter('received')}
               className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
                 filter === 'received'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -118,7 +118,7 @@ export default function Wallet() {
 
           {loading ? (
             <div className="p-12 text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
               <p className="mt-4 text-gray-600">Cargando transacciones...</p>
             </div>
           ) : transactions.length === 0 ? (
@@ -126,7 +126,7 @@ export default function Wallet() {
               <p className="text-gray-600 text-lg">No hay transacciones aún</p>
               <button
                 onClick={() => navigate('/')}
-                className="mt-4 text-purple-600 hover:underline"
+                className="mt-4 text-brand-600 hover:underline"
               >
                 Explorar servicios
               </button>

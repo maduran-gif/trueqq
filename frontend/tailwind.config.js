@@ -7,8 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand: {
+          100: '#E6FDF5',
+          500: '#00D68F',
+          600: '#00D68F',
+          700: '#00B87A',
+        },
+        accent: {
+          100: '#F0FFE0',
+          500: '#D4FF00',
+          600: '#B8E600',
+        },
         primary: {
-          DEFAULT: '#8B5CF6',
+          DEFAULT: '#00D68F',
         },
         secondary: {
           DEFAULT: '#3B82F6',

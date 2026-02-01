@@ -108,7 +108,7 @@ export default function Home() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
               {searchTerm && (
                 <button onClick={handleClear} className="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
@@ -118,7 +118,7 @@ export default function Home() {
             </div>
             <button
               onClick={handleSearch}
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors flex items-center gap-2 whitespace-nowrap"
+              className="bg-brand-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-700 transition-colors flex items-center gap-2 whitespace-nowrap"
             >
               <Search size={18} />
               Buscar
@@ -128,7 +128,7 @@ export default function Home() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             style={{ WebkitAppearance: 'auto', appearance: 'auto', backgroundColor: 'white' }}
           >
             <option value="">Todas las categorías</option>
@@ -139,7 +139,7 @@ export default function Home() {
 
           <Link
             to="/create-service"
-            className="flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors whitespace-nowrap"
+            className="flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-700 transition-colors whitespace-nowrap"
           >
             <Plus size={20} />
             Publicar Servicio
@@ -150,13 +150,13 @@ export default function Home() {
           <div className="mb-6 flex flex-wrap gap-2 items-center">
             <span className="text-sm text-gray-500">Filtros activos:</span>
             {appliedSearch && (
-              <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">
+              <span className="inline-flex items-center gap-1 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm">
                 🔍 "{appliedSearch}"
                 <button onClick={handleClear} className="hover:text-purple-900"><X size={14} /></button>
               </span>
             )}
             {selectedCategory && (
-              <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">
+              <span className="inline-flex items-center gap-1 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm">
                 📂 {selectedCategory}
                 <button onClick={() => setSelectedCategory('')} className="hover:text-purple-900"><X size={14} /></button>
               </span>
@@ -172,7 +172,7 @@ export default function Home() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
             <p className="mt-4 text-gray-600">Cargando servicios...</p>
           </div>
         ) : filteredServices.length === 0 ? (
@@ -185,7 +185,7 @@ export default function Home() {
             {(appliedSearch || selectedCategory) && (
               <button
                 onClick={() => { handleClear(); setSelectedCategory(''); }}
-                className="mt-3 text-purple-600 hover:text-purple-700 font-semibold"
+                className="mt-3 text-brand-600 hover:text-brand-700 font-semibold"
               >
                 Limpiar filtros
               </button>
@@ -201,7 +201,7 @@ export default function Home() {
               >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
-                  <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm font-semibold">
                     {service.trueqqPrice} T
                   </span>
                 </div>
