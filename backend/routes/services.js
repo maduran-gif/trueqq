@@ -13,36 +13,46 @@ router.post('/', protect, async (req, res) => {
     const { title, description, category, trueqqPrice, community } = req.body;
 
     // Validar campos requeridos
-    if (!title || !description || !category || !trueqqPrice || !community) {
+    if (!title || !description || !category || !trueqqPrice) {
       return res.status(400).json({
         success: false,
         message: 'Por favor completa todos los campos'
       });
     }
 
-    // Verificar que la comunidad existe
-    const communityExists = await Community.findById(community);
-    if (!communityExists) {
-      return res.status(404).json({
-        success: false,
-        message: 'Comunidad no encontrada'
-      });
+    // Verificar que la comunidad existe (opcional)
+    let communityExists = null;
+    if (community) {
+      communityExists = await Community.findById(community);
+      if (!communityExists) {
+        return res.status(404).json({
+          success: false,
+          message: 'Comunidad no encontrada'
+        });
+      }
     }
 
     // Crear servicio
-    const service = await Service.create({
+    const serviceData = {
       title,
       description,
       category,
       trueqqPrice,
-      community,
       provider: req.user._id,
       providerName: req.user.name
-    });
+    };
 
-    // Actualizar contador de servicios en la comunidad
-    communityExists.servicesCount += 1;
-    await communityExists.save();
+    if (community) {
+      serviceData.community = community;
+    }
+
+    const service = await Service.create(serviceData);
+
+    // Actualizar contador de servicios en la comunidad (si existe)
+    if (communityExists) {
+      communityExists.servicesCount += 1;
+      await communityExists.save();
+    }
 
     // Agregar servicio al usuario
     const user = await User.findById(req.user._id);
@@ -169,7 +179,7 @@ router.put('/:id', protect, async (req, res) => {
 
     // Actualizar campos permitidos
     const { title, description, category, trueqqPrice } = req.body;
-
+    
     if (title) service.title = title;
     if (description) service.description = description;
     if (category) service.category = category;
