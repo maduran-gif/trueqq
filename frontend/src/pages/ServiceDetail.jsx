@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getService, requestService } from '../services/api';
+import { getService, requestService, getServiceReviews } from '../services/api';
 import Navbar from '../components/Navbar';
-import { ArrowLeft, Star, User, MessageSquare } from 'lucide-react';
+import StarRating from '../components/StarRating';
+import { ArrowLeft, User, MessageSquare } from 'lucide-react';
 
 export default function ServiceDetail() {
   const { id } = useParams();
   const { user, updateBalance } = useAuth();
   const navigate = useNavigate();
   const [service, setService] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [requesting, setRequesting] = useState(false);
   const [error, setError] = useState('');
@@ -17,6 +19,7 @@ export default function ServiceDetail() {
 
   useEffect(() => {
     loadService();
+    loadReviews();
   }, [id]);
 
   const loadService = async () => {
@@ -28,6 +31,15 @@ export default function ServiceDetail() {
       setError('No se pudo cargar el servicio');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadReviews = async () => {
+    try {
+      const response = await getServiceReviews(id);
+      setReviews(response.data.data);
+    } catch (error) {
+      console.error('Error al cargar reviews:', error);
     }
   };
 
@@ -55,6 +67,15 @@ export default function ServiceDetail() {
     } finally {
       setRequesting(false);
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
   };
 
   if (loading) {
@@ -94,7 +115,7 @@ export default function ServiceDetail() {
           Volver
         </button>
 
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
           {/* Header */}
           <div className="bg-gradient-to-r from-brand-600 to-blue-500 text-white p-8">
             <div className="flex justify-between items-start">
@@ -102,8 +123,7 @@ export default function ServiceDetail() {
                 <h1 className="text-3xl font-bold mb-2">{service.title}</h1>
                 <div className="flex items-center gap-4 text-brand-100">
                   <div className="flex items-center gap-1">
-                    <Star size={18} className="fill-yellow-300 text-yellow-300" />
-                    <span className="font-semibold">{service.rating}</span>
+                    <StarRating rating={parseFloat(service.rating)} size={18} />
                   </div>
                   <span>•</span>
                   <span>{service.category}</span>
@@ -158,7 +178,7 @@ export default function ServiceDetail() {
                 <p className="text-sm text-gray-600">Calificación</p>
               </div>
               <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <p className="text-2xl font-bold text-gray-900">{service.reviewsCount}</p>
+                <p className="text-2xl font-bold text-gray-900">{reviews.length}</p>
                 <p className="text-sm text-gray-600">Reseñas</p>
               </div>
             </div>
@@ -192,6 +212,38 @@ export default function ServiceDetail() {
             )}
           </div>
         </div>
+
+        {/* Reviews Section */}
+        {reviews.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Calificaciones ({reviews.length})
+            </h2>
+            <div className="space-y-6">
+              {reviews.map((review) => (
+                <div key={review._id} className="border-b border-gray-200 pb-6 last:border-0 last:pb-0">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-brand-100 p-2 rounded-full">
+                      <User size={20} className="text-brand-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <p className="font-semibold text-gray-900">{review.client.name}</p>
+                          <p className="text-xs text-gray-500">{formatDate(review.createdAt)}</p>
+                        </div>
+                        <StarRating rating={review.rating} size={16} />
+                      </div>
+                      {review.comment && (
+                        <p className="text-gray-700 text-sm">{review.comment}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

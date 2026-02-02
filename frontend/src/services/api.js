@@ -50,4 +50,12 @@ export const getTransaction = (id) => API.get(`/transactions/${id}`);
 export const completeTransaction = (id) => API.put(`/transactions/${id}/complete`);
 export const getTransactionStats = () => API.get('/transactions/stats/summary');
 
+// ============================================
+// REVIEWS (CALIFICACIONES)
+// ============================================
+export const createReview = (reviewData) => API.post('/reviews', reviewData);
+export const getServiceReviews = (serviceId) => API.get(`/reviews/service/${serviceId}`);
+export const getProviderReviews = (providerId) => API.get(`/reviews/provider/${providerId}`);
+export const getTransactionReview = (transactionId) => API.get(`/reviews/transaction/${transactionId}`);
+
 export default API;
