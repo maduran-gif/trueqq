@@ -5,6 +5,7 @@ const Transaction = require('../models/Transaction');
 const Service = require('../models/Service');
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
+const { createNotification } = require('./notifications');
 
 // @route   POST /api/reviews
 // @desc    Crear una review para una transacción completada
@@ -73,6 +74,16 @@ router.post('/', protect, async (req, res) => {
 
     // Actualizar rating promedio del servicio
     await updateServiceRating(transaction.service);
+
+    // Crear notificación para el proveedor
+    await createNotification({
+      user: transaction.provider,
+      type: 'review_received',
+      title: '¡Nueva calificación!',
+      message: `Has recibido una calificación de ${rating} estrellas`,
+      relatedService: transaction.service,
+      relatedReview: review._id
+    });
 
     res.status(201).json({
       success: true,

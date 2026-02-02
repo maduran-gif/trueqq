@@ -59,3 +59,10 @@ export const getProviderReviews = (providerId) => API.get(`/reviews/provider/${p
 export const getTransactionReview = (transactionId) => API.get(`/reviews/transaction/${transactionId}`);
 
 export default API;
+
+// ============================================
+// NOTIFICACIONES
+// ============================================
+export const getNotifications = (unreadOnly = false) => API.get('/notifications', { params: { unreadOnly } });
+export const markNotificationAsRead = (notificationId) => API.put(`/notifications/${notificationId}/read`);
+export const markAllNotificationsAsRead = () => API.put('/notifications/mark-all-read');

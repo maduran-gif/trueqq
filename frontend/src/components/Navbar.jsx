@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Wallet, User, LogOut } from 'lucide-react';
+import NotificationBell from './NotificationBell';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -22,6 +23,8 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-4">
+            <NotificationBell />
+            
             {/* Balance */}
             <div className="flex items-center gap-2 bg-brand-700 px-4 py-2 rounded-lg">
               <Wallet size={20} />

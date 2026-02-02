@@ -80,6 +80,15 @@ router.post('/request', protect, async (req, res) => {
     // Actualizar estadísticas del servicio
     service.timesRequested += 1;
     await service.save();
+    // Crear notificación para el proveedor
+    await createNotification({
+      user: provider._id,
+      type: 'service_request',
+      title: '¡Nuevo servicio solicitado!',
+      message: `${client.name} solicitó tu servicio "${service.title}"`,
+      relatedService: service._id,
+      relatedTransaction: transaction._id
+    });
 
     res.status(201).json({
       success: true,

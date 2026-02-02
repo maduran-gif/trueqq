@@ -47,6 +47,8 @@ app.use('/api/services', require('./routes/services'));
 app.use('/api/transactions', require('./routes/transactions'));
 // Rutas de reviews
 app.use('/api/reviews', require('./routes/reviews'));
+// Rutas de notificaciones
+app.use('/api/notifications', require('./routes/notifications'));
 // Ruta 404
 app.use((req, res) => {
   res.status(404).json({
