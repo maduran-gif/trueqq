@@ -45,6 +45,8 @@ app.use('/api/services', require('./routes/services'));
 
 // Rutas de transacciones
 app.use('/api/transactions', require('./routes/transactions'));
+// Rutas de reviews
+app.use('/api/reviews', require('./routes/reviews'));
 // Ruta 404
 app.use((req, res) => {
   res.status(404).json({
@@ -68,7 +70,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('\n' + '='.repeat(50));
   console.log('🚀 SERVIDOR TRUEQQ INICIADO');
   console.log('='.repeat(50));
-  console.log(`📡 Puerto: ${PORT}`);
+ console.log(`📡 Puerto: ${PORT}`);
   console.log(`🌍 URL: http://localhost:${PORT}`);
   console.log(`🧪 Test: http://localhost:${PORT}/api/test`);
   console.log('='.repeat(50) + '\n');
