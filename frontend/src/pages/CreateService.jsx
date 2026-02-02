@@ -23,11 +23,11 @@ export default function CreateService() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [hours, setHours] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    category: '',
-    trueqqPrice: ''
+    category: ''
   });
 
   const handleChange = (e) => {
@@ -37,6 +37,12 @@ export default function CreateService() {
     });
   };
 
+  const handleHoursChange = (e) => {
+    setHours(e.target.value);
+  };
+
+  const calculatedPrice = hours ? Number(hours) * 100 : 0;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -45,9 +51,9 @@ export default function CreateService() {
     try {
       await createService({
         ...formData,
-        trueqqPrice: Number(formData.trueqqPrice)
+        trueqqPrice: calculatedPrice
       });
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       setError(error.response?.data?.message || 'Error al crear servicio');
     } finally {
@@ -105,18 +111,18 @@ export default function CreateService() {
                 placeholder={`Cuéntanos en detalle sobre lo que ofreces. Mientras más clara sea tu descripción, más personas se interesarán en ti.
 
 Por ejemplo, podrías mencionar:
-• ¿En qué te especializas y cuánta experiencia tienes?
-• ¿A quién le encajaría este servicio?
-• ¿Es presencial, virtual o a domicilio?
-• ¿Cuánto dura cada sesión o entrega?
-• ¿Qué necesita saber el cliente antes de pedirte?
+- ¿En qué te especializas y cuánta experiencia tienes?
+- ¿A quién le encajaría este servicio?
+- ¿Es presencial, virtual o a domicilio?
+- ¿Cuánto dura cada sesión o entrega?
+- ¿Qué necesita saber el cliente antes de pedirte?
 
 Un buen servicio publicado es el primer paso para conectar con alguien que te necesite.`}
                 required
               />
             </div>
 
-            {/* Categoría y Precio */}
+            {/* Categoría y Horas */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -153,18 +159,27 @@ Un buen servicio publicado es el primer paso para conectar con alguien que te ne
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Precio en Trueqqs *
+                  Tiempo del servicio (horas) *
                 </label>
                 <input
                   type="number"
-                  name="trueqqPrice"
-                  value={formData.trueqqPrice}
-                  onChange={handleChange}
-                  min="1"
+                  name="hours"
+                  value={hours}
+                  onChange={handleHoursChange}
+                  min="0.5"
+                  step="0.5"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
-                  placeholder="50"
+                  placeholder="2"
                   required
                 />
+                {hours && (
+                  <p className="mt-2 text-sm text-brand-600 font-semibold">
+                    Este servicio valdrá: {calculatedPrice} Trueqqs
+                  </p>
+                )}
+                <p className="mt-1 text-xs text-gray-500">
+                  1 hora = 100 Trueqqs
+                </p>
               </div>
             </div>
 

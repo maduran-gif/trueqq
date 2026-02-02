@@ -104,8 +104,8 @@ export default function Register() {
               className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500" style={{ WebkitAppearance: "auto", appearance: "auto", backgroundColor: "white", height: "50px", paddingLeft: "16px", paddingRight: "16px", fontSize: "16px" }}
             >
               <option value="free">Free (0 Trueqqs - 3 transacciones/mes)</option>
-              <option value="freemium">Freemium (500 Trueqqs gratis)</option>
-              <option value="premium">Premium (500 Trueqqs - $5/mes)</option>
+<option value="freemium">Freemium (200 Trueqqs gratis - una sola vez)</option>
+<option value="premium">Premium (5 USD/mes - 200 Trueqqs + transacciones ilimitadas)</option>
             </select>
           </div>
 
