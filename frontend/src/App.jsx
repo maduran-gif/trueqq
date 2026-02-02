@@ -8,6 +8,7 @@ import ServiceDetail from './pages/ServiceDetail';
 import CreateService from './pages/CreateService';
 import Wallet from './pages/Wallet';
 import Profile from './pages/Profile';
+import ChatPage from './pages/ChatPage';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -57,6 +58,7 @@ function App() {
         <Route path="/create-service" element={<ProtectedRoute><CreateService /></ProtectedRoute>} />
         <Route path="/wallet" element={<ProtectedRoute><Wallet /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/chat/:transactionId" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

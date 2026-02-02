@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getMyTransactions } from '../services/api';
 import Navbar from '../components/Navbar';
-import { Wallet as WalletIcon, TrendingUp, TrendingDown, ArrowLeft } from 'lucide-react';
+import { ArrowDownLeft, ArrowUpRight, TrendingUp, TrendingDown, MessageSquare } from 'lucide-react';
 
 export default function Wallet() {
   const { user } = useAuth();
@@ -40,7 +40,7 @@ export default function Wallet() {
     });
   };
 
-  return (
+  return 
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
@@ -188,8 +188,16 @@ export default function Wallet() {
               })}
             </div>
           )}
-        </div>
+        </div>  
       </div>
     </div>
-  );
+    {transaction.chatActive && (
+  <button
+    onClick={() => navigate(`/chat/${transaction._id}`)}
+    className="mt-3 w-full bg-brand-100 text-brand-600 py-2 rounded-lg font-semibold hover:bg-brand-200 transition-colors flex items-center justify-center gap-2"
+  >
+    <MessageSquare size={18} />
+    Abrir Chat
+  </button>
+)}
 }

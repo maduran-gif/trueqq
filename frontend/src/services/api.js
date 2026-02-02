@@ -58,6 +58,10 @@ export const getServiceReviews = (serviceId) => API.get(`/reviews/service/${serv
 export const getProviderReviews = (providerId) => API.get(`/reviews/provider/${providerId}`);
 export const getTransactionReview = (transactionId) => API.get(`/reviews/transaction/${transactionId}`);
 
+// ============================================
+// MENSAJES / CHAT
+// ============================================
+export const getMessages = (transactionId) => API.get(`/messages/${transactionId}`);
 export default API;
 
 // ============================================
