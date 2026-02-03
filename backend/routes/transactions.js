@@ -4,6 +4,7 @@ const Transaction = require('../models/Transaction');
 const Service = require('../models/Service');
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
+const { createNotification } = require('./notifications');
 
 // @route   POST /api/transactions/request
 // @desc    Solicitar un servicio (crear transacción)
