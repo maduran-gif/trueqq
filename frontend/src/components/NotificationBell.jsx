@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Bell, Check, CheckCheck } from 'lucide-react';
 import { getNotifications, markNotificationAsRead, markAllNotificationsAsRead } from '../services/api';
 
 export default function NotificationBell() {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -63,6 +65,23 @@ export default function NotificationBell() {
       console.error('Error al marcar todas como leídas:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleNotificationClick = async (notification) => {
+    // Marcar como leída si no lo está
+    if (!notification.read) {
+      await handleMarkAsRead(notification._id);
+    }
+
+    // Cerrar dropdown
+    setShowDropdown(false);
+
+    // Navegar según el tipo de notificación
+    if (notification.relatedTransaction?._id) {
+      navigate(`/chat/${notification.relatedTransaction._id}`);
+    } else if (notification.relatedService?._id) {
+      navigate(`/services/${notification.relatedService._id}`);
     }
   };
 
@@ -128,7 +147,7 @@ export default function NotificationBell() {
                     className={`p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors ${
                       !notification.read ? 'bg-blue-50' : ''
                     }`}
-                    onClick={() => !notification.read && handleMarkAsRead(notification._id)}
+                    onClick={() => handleNotificationClick(notification)}
                   >
                     <div className="flex items-start gap-3">
                       <div className="flex-1">
