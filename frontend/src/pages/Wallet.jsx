@@ -1,17 +1,16 @@
-// Fixed return
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getMyTransactions } from '../services/api';
 import Navbar from '../components/Navbar';
-import { ArrowDownLeft, ArrowUpRight, TrendingUp, TrendingDown, MessageSquare } from 'lucide-react';
+import { ArrowDownLeft, ArrowUpRight, TrendingUp, TrendingDown, MessageSquare, ArrowLeft, Wallet as WalletIcon } from 'lucide-react';
 
 export default function Wallet() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('all'); // 'all', 'sent', 'received'
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     loadTransactions();
@@ -126,7 +125,7 @@ export default function Wallet() {
             <div className="p-12 text-center">
               <p className="text-gray-600 text-lg">No hay transacciones aún</p>
               <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/home')}
                 className="mt-4 text-brand-600 hover:underline"
               >
                 Explorar servicios
@@ -140,7 +139,7 @@ export default function Wallet() {
 
                 return (
                   <div key={transaction._id} className="p-6 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           {isSent ? (
@@ -184,21 +183,23 @@ export default function Wallet() {
                         <p className="text-sm text-gray-500">Trueqqs</p>
                       </div>
                     </div>
+                    
+                    {transaction.chatActive && (
+                      <button
+                        onClick={() => navigate(`/chat/${transaction._id}`)}
+                        className="w-full bg-brand-100 text-brand-600 py-2 rounded-lg font-semibold hover:bg-brand-200 transition-colors flex items-center justify-center gap-2"
+                      >
+                        <MessageSquare size={18} />
+                        Abrir Chat
+                      </button>
+                    )}
                   </div>
                 );
               })}
             </div>
           )}
-        </div>  
+        </div>
       </div>
     </div>
-    {transaction.chatActive && (
-  <button
-    onClick={() => navigate(`/chat/${transaction._id}`)}
-    className="mt-3 w-full bg-brand-100 text-brand-600 py-2 rounded-lg font-semibold hover:bg-brand-200 transition-colors flex items-center justify-center gap-2"
-  >
-    <MessageSquare size={18} />
-    Abrir Chat
-  </button>
-)}
+  );
 }
