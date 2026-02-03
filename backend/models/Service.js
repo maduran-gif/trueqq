@@ -33,7 +33,7 @@ const serviceSchema = new mongoose.Schema({
   community: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Community',
-    required: [true, 'Debes seleccionar una comunidad']
+    required: false
   },
   isActive: {
     type: Boolean,
