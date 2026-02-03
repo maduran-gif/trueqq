@@ -27,13 +27,20 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    // Crear usuario
-    const user = await User.create({
-      name,
-      email,
-      password,
-      accountType: accountType || 'free'
-    });
+   // Determinar balance inicial según tipo de cuenta
+let initialBalance = 0;
+if (accountType === 'freemium' || accountType === 'premium') {
+  initialBalance = 200;
+}
+
+// Crear usuario
+const user = await User.create({
+  name,
+  email,
+  password,
+  accountType: accountType || 'free',
+  trueqqBalance: initialBalance
+});
 
     // Generar token
     const token = generateToken(user._id);
