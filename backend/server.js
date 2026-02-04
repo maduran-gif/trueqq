@@ -66,6 +66,9 @@ app.use('/api/reviews', require('./routes/reviews'));
 // Rutas de notificaciones
 app.use('/api/notifications', require('./routes/notifications'));
 
+// Rutas de mensajes
+app.use('/api/messages', require('./routes/messages'));
+
 // Ruta 404
 app.use((req, res) => {
   res.status(404).json({
@@ -90,6 +93,7 @@ app.use((err, req, res, next) => {
 
 const Message = require('./models/Message');
 const Transaction = require('./models/Transaction');
+const { createNotification } = require('./routes/notifications');
 
 io.on('connection', (socket) => {
   console.log('✅ Usuario conectado:', socket.id);
@@ -147,6 +151,21 @@ io.on('connection', (socket) => {
 
       // Enviar a todos en la sala
       io.to(transactionId).emit('new_message', message);
+
+      // Crear notificación para el destinatario
+      const transaction = await Transaction.findById(transactionId);
+      const recipientId = transaction.client.toString() === userId 
+        ? transaction.provider.toString() 
+        : transaction.client.toString();
+
+      await createNotification({
+        user: recipientId,
+        type: 'service_request',
+        title: '💬 Nuevo mensaje',
+        message: `${userName} te envió un mensaje`,
+        relatedTransaction: transactionId
+      });
+
     } catch (error) {
       console.error('Error al enviar mensaje:', error);
       socket.emit('error', { message: 'Error al enviar mensaje' });
