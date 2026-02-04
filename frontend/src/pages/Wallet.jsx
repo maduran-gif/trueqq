@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getMyTransactions } from '../services/api';
 import Navbar from '../components/Navbar';
+import ReviewForm from '../components/ReviewForm';
 import { ArrowDownLeft, ArrowUpRight, TrendingUp, TrendingDown, MessageSquare, ArrowLeft, Wallet as WalletIcon } from 'lucide-react';
 
 export default function Wallet() {
@@ -11,6 +12,8 @@ export default function Wallet() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   useEffect(() => {
     loadTransactions();
@@ -184,13 +187,27 @@ export default function Wallet() {
                       </div>
                     </div>
                     
+                    {/* Botón Chat */}
                     {transaction.chatActive && (
                       <button
                         onClick={() => navigate(`/chat/${transaction._id}`)}
-                        className="w-full bg-brand-100 text-brand-600 py-2 rounded-lg font-semibold hover:bg-brand-200 transition-colors flex items-center justify-center gap-2"
+                        className="w-full bg-brand-100 text-brand-600 py-2 rounded-lg font-semibold hover:bg-brand-200 transition-colors flex items-center justify-center gap-2 mb-2"
                       >
                         <MessageSquare size={18} />
                         Abrir Chat
+                      </button>
+                    )}
+
+                    {/* Botón Calificar - Solo para clientes en transacciones completadas sin review */}
+                    {isSent && transaction.status === 'completed' && !transaction.hasReview && (
+                      <button
+                        onClick={() => {
+                          setSelectedTransaction(transaction);
+                          setShowReviewModal(true);
+                        }}
+                        className="w-full bg-yellow-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2"
+                      >
+                        ⭐ Calificar Servicio
                       </button>
                     )}
                   </div>
@@ -200,6 +217,39 @@ export default function Wallet() {
           )}
         </div>
       </div>
+
+      {/* Modal de Calificación */}
+      {showReviewModal && selectedTransaction && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative">
+            <button
+              onClick={() => {
+                setShowReviewModal(false);
+                setSelectedTransaction(null);
+              }}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+            >
+              ×
+            </button>
+            
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Califica el servicio
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {selectedTransaction.serviceTitle}
+            </p>
+            
+            <ReviewForm
+              transactionId={selectedTransaction._id}
+              onSuccess={() => {
+                setShowReviewModal(false);
+                setSelectedTransaction(null);
+                loadTransactions();
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
