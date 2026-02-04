@@ -12,52 +12,63 @@ export default function Chat({ transactionId, otherUserName }) {
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
 
-  useEffect(() => {
-    const socket = getSocket();
+useEffect(() => {
+  const socket = getSocket();
 
-    // Conectar eventos
-    socket.on('connect', () => {
-      setConnected(true);
-      // Unirse al chat
-      socket.emit('join_chat', {
-        transactionId,
-        userId: user.id
-      });
+  // Verificar si ya está conectado
+  if (socket.connected) {
+    setConnected(true);
+    socket.emit('join_chat', {
+      transactionId,
+      userId: user.id
     });
+  }
 
-    socket.on('disconnect', () => {
-      setConnected(false);
+  // Conectar eventos
+  socket.on('connect', () => {
+    setConnected(true);
+    // Unirse al chat
+    socket.emit('join_chat', {
+      transactionId,
+      userId: user.id
     });
+  });
 
-    // Mensajes previos
-    socket.on('previous_messages', (prevMessages) => {
-      setMessages(prevMessages);
-    });
+  socket.on('disconnect', () => {
+    setConnected(false);
+  });
 
-    // Nuevo mensaje
-    socket.on('new_message', (message) => {
-      setMessages((prev) => [...prev, message]);
-    });
+  // Mensajes previos
+  socket.on('previous_messages', (prevMessages) => {
+    setMessages(prevMessages);
+  });
 
-    // Usuario escribiendo
-    socket.on('user_typing', ({ userName }) => {
-      setIsTyping(true);
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
-      }
-      typingTimeoutRef.current = setTimeout(() => {
-        setIsTyping(false);
-      }, 2000);
-    });
+  // Nuevo mensaje
+  socket.on('new_message', (message) => {
+    setMessages((prev) => [...prev, message]);
+  });
 
-    // Limpiar al desmontar
-    return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('previous_messages');
-      socket.off('new_message');
-      socket.off('user_typing');
-    };
+  // Usuario escribiendo
+  socket.on('user_typing', ({ userName }) => {
+    setIsTyping(true);
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = setTimeout(() => {
+      setIsTyping(false);
+    }, 2000);
+  });
+
+  // Limpiar al desmontar
+  return () => {
+    socket.off('connect');
+    socket.off('disconnect');
+    socket.off('previous_messages');
+    socket.off('new_message');
+    socket.off('user_typing');
+  };
+}, [transactionId, user.id]);
+
   }, [transactionId, user.id]);
 
   // Auto-scroll al final
