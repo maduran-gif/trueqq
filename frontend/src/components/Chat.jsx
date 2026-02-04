@@ -69,8 +69,6 @@ useEffect(() => {
   };
 }, [transactionId, user.id]);
 
-  }, [transactionId, user.id]);
-
   // Auto-scroll al final
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
