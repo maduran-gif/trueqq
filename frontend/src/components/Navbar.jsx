@@ -25,11 +25,14 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <NotificationBell />
             
-            {/* Balance */}
-            <div className="flex items-center gap-2 bg-brand-700 px-4 py-2 rounded-lg">
-              <Wallet size={20} />
-              <span className="font-semibold">{user?.trueqqBalance || 0} Trueqqs</span>
-            </div>
+           {/* Balance - Clickeable para ir a Wallet */}
+<Link 
+  to="/wallet"
+  className="flex items-center gap-2 bg-brand-700 px-4 py-2 rounded-lg hover:bg-brand-800 transition-colors cursor-pointer"
+>
+  <Wallet size={20} />
+  <span className="font-semibold">{user?.trueqqBalance || 0} Trueqqs</span>
+</Link>
 
             {/* User menu */}
             <div className="flex items-center gap-3">
