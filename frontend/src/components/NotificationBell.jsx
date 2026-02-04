@@ -69,21 +69,28 @@ export default function NotificationBell() {
   };
 
   const handleNotificationClick = async (notification) => {
-    // Marcar como leída si no lo está
-    if (!notification.read) {
-      await handleMarkAsRead(notification._id);
-    }
+  console.log('Notificación clickeada:', notification);
+  
+  // Marcar como leída si no lo está
+  if (!notification.read) {
+    await handleMarkAsRead(notification._id);
+  }
 
-    // Cerrar dropdown
-    setShowDropdown(false);
+  // Cerrar dropdown
+  setShowDropdown(false);
 
-    // Navegar según el tipo de notificación
-    if (notification.relatedTransaction?._id) {
-      navigate(`/chat/${notification.relatedTransaction._id}`);
-    } else if (notification.relatedService?._id) {
-      navigate(`/services/${notification.relatedService._id}`);
-    }
-  };
+  // Navegar según el tipo de notificación
+  if (notification.relatedTransaction?._id) {
+    console.log('Navegando a chat:', notification.relatedTransaction._id);
+    navigate(`/chat/${notification.relatedTransaction._id}`);
+  } else if (notification.relatedService?._id) {
+    console.log('Navegando a servicio:', notification.relatedService._id);
+    navigate(`/services/${notification.relatedService._id}`);
+  } else {
+    console.log('No hay destino para esta notificación');
+  }
+};
+
 
   const formatTime = (dateString) => {
     const date = new Date(dateString);
