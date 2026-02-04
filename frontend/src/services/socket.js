@@ -10,7 +10,8 @@ export const initSocket = () => {
       transports: ['websocket', 'polling'],
       reconnection: true,
       reconnectionAttempts: 5,
-      reconnectionDelay: 1000
+      reconnectionDelay: 3000,
+      timeout: 20000
     });
 
     socket.on('connect', () => {
