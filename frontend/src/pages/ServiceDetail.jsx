@@ -147,7 +147,7 @@ export default function ServiceDetail() {
             {/* Description */}
             <div className="mb-8">
               <h2 className="text-xl font-bold text-gray-900 mb-3">Descripción</h2>
-              <p className="text-gray-700 leading-relaxed">{service.description}</p>
+              <p className="whitespace-pre-line text-gray-700 leading-relaxed">{service.description}</p>
             </div>
 
             {/* Provider */}
@@ -235,7 +235,7 @@ export default function ServiceDetail() {
                         <StarRating rating={review.rating} size={16} />
                       </div>
                       {review.comment && (
-                        <p className="text-gray-700 text-sm">{review.comment}</p>
+                        <p className="whitespace-pre-line text-gray-700 text-sm">{review.comment}</p>
                       )}
                     </div>
                   </div>
