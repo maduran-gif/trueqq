@@ -164,9 +164,9 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="mb-8">
-          <form onSubmit={handleSearch} className="max-w-2xl">
+        {/* Search Bar + Publish Button */}
+        <div className="mb-8 flex gap-4">
+          <form onSubmit={handleSearch} className="flex-1">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
@@ -178,22 +178,21 @@ export default function Home() {
               />
             </div>
           </form>
+          
+          <button
+            onClick={() => navigate('/create-service')}
+            className="bg-brand-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-brand-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg whitespace-nowrap min-w-[200px]"
+          >
+            <Plus size={20} />
+            Publicar Servicio
+          </button>
         </div>
 
         {/* Communities Section */}
         <div>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">
-              Explora por Categorías
-            </h2>
-            <button
-              onClick={() => navigate('/create-service')}
-              className="bg-brand-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-700 transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
-            >
-              <Plus size={20} />
-              Publicar Servicio
-            </button>
-          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Explora por Categorías
+          </h2>
           
           {loading ? (
             <div className="flex items-center justify-center py-20">
