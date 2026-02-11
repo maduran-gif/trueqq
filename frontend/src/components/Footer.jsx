@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-auto">
+    <footer className="bg-white border-t border-gray-200 mt-16">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center">
           <h3 className="text-xl font-bold text-brand-600 mb-1">Trueqq</h3>
