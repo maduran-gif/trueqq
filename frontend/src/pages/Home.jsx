@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { getServices } from '../services/api';
 import Navbar from '../components/Navbar';
 import { Plus, Search } from 'lucide-react';
+import Footer from '../components/Footer';
 
 const COMMUNITIES = [
   // GRUPO 1: CUERPO & MENTE
@@ -232,8 +233,10 @@ export default function Home() {
               })}
             </div>
           )}
-        </div>
+ </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }

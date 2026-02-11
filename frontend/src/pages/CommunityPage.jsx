@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getServices } from '../services/api';
 import Navbar from '../components/Navbar';
 import { ArrowLeft } from 'lucide-react';
+import Footer from '../components/Footer';
 
 export default function CommunityPage() {
   const { category } = useParams();
@@ -104,6 +105,7 @@ export default function CommunityPage() {
             </button>
           </div>
         )}
+        <Footer />
       </div>
     </div>
   );
