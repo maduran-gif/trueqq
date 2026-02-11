@@ -6,16 +6,35 @@ import Navbar from '../components/Navbar';
 import { ArrowLeft, Plus, AlertCircle } from 'lucide-react';
 
 const CATEGORIES = [
+  // GRUPO 1: CUERPO & MENTE
   'Fitness & Bienestar',
-  'Transporte & Logística',
-  'Hogar & Construcción',
-  'Cocina & Alimentos',
-  'Tecnología & Digital',
-  'Arte, Diseño & Manualidades',
-  'Educación & Cuidado',
+  'Profesionales de la salud',
   'Estilo & Imagen',
-  'Experiencias & Ocio',
-  'Administrativo & Oficina'
+  
+  // GRUPO 2: HOGAR & ESPACIO
+  'Construcción & Reparaciones',
+  'Limpieza & Mantenimiento',
+  'Jardinería & Exteriores',
+  
+  // GRUPO 3: ALIMENTACIÓN & MOVILIDAD
+  'Cocina & Alimentos',
+  'Transporte & Logística',
+  
+  // GRUPO 4: CREATIVIDAD & TECNOLOGÍA
+  'Arte & Manualidades',
+  'Fotografía & Video',
+  'Tecnología & Digital',
+  
+  // GRUPO 5: APRENDIZAJE & CUIDADO
+  'Educación & Formación',
+  'Cuidado & Acompañamiento',
+  
+  // GRUPO 6: NEGOCIOS & PROFESIONAL
+  'Emprendimiento-Empresa',
+  'Legal & Trámites',
+  
+  // GRUPO 7: VIDA & OCIO
+  'Experiencias & Ocio'
 ];
 
 export default function CreateService() {
