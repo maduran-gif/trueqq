@@ -9,9 +9,11 @@ import CreateService from './pages/CreateService';
 import Wallet from './pages/Wallet';
 import Profile from './pages/Profile';
 import ChatPage from './pages/ChatPage';
+import CommunityPage from './pages/CommunityPage';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -19,11 +21,13 @@ function ProtectedRoute({ children }) {
       </div>
     );
   }
+
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 
 function AuthRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -31,11 +35,13 @@ function AuthRoute({ children }) {
       </div>
     );
   }
+
   return isAuthenticated ? <Navigate to="/home" /> : children;
 }
 
 function LandingRoute() {
   const { isAuthenticated, loading } = useAuth();
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -43,6 +49,7 @@ function LandingRoute() {
       </div>
     );
   }
+
   return isAuthenticated ? <Navigate to="/home" /> : <Landing />;
 }
 
@@ -54,6 +61,7 @@ function App() {
         <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
         <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/community/:category" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/services/:id" element={<ProtectedRoute><ServiceDetail /></ProtectedRoute>} />
         <Route path="/create-service" element={<ProtectedRoute><CreateService /></ProtectedRoute>} />
         <Route path="/wallet" element={<ProtectedRoute><Wallet /></ProtectedRoute>} />

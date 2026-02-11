@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getServices } from '../services/api';
 import Navbar from '../components/Navbar';
-import { Plus, Search, X } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 
 const COMMUNITIES = [
   // GRUPO 1: CUERPO & MENTE
   { 
     name: 'Fitness & Bienestar', 
     icon: '💪',
-    description: 'Deporte, yoga, meditación, salud',
+    description: 'Deporte, yoga, meditación',
     color: 'bg-brand-50'
   },
   { 
@@ -30,19 +30,19 @@ const COMMUNITIES = [
   { 
     name: 'Construcción & Reparaciones', 
     icon: '🔧',
-    description: 'Albañilería, plomería, electricidad',
+    description: 'Albañilería, plomería',
     color: 'bg-gray-50'
   },
   { 
     name: 'Limpieza & Mantenimiento', 
     icon: '🧹',
-    description: 'Limpieza del hogar, organización',
+    description: 'Limpieza, organización',
     color: 'bg-brand-50'
   },
   { 
     name: 'Jardinería & Exteriores', 
     icon: '🌱',
-    description: 'Jardines, plantas, paisajismo',
+    description: 'Jardines, paisajismo',
     color: 'bg-gray-50'
   },
   
@@ -50,13 +50,13 @@ const COMMUNITIES = [
   { 
     name: 'Cocina & Alimentos', 
     icon: '🍳',
-    description: 'Gastronomía, catering, repostería',
+    description: 'Gastronomía, catering',
     color: 'bg-brand-50'
   },
   { 
     name: 'Transporte & Logística', 
     icon: '🚚',
-    description: 'Movilidad, entregas, mudanzas',
+    description: 'Movilidad, entregas',
     color: 'bg-gray-50'
   },
   
@@ -64,19 +64,19 @@ const COMMUNITIES = [
   { 
     name: 'Arte & Manualidades', 
     icon: '🎨',
-    description: 'Pintura, artesanías, joyería',
+    description: 'Pintura, artesanías',
     color: 'bg-brand-50'
   },
   { 
     name: 'Fotografía & Video', 
     icon: '📸',
-    description: 'Fotografía, video, edición',
+    description: 'Fotografía, edición',
     color: 'bg-gray-50'
   },
   { 
     name: 'Tecnología & Digital', 
     icon: '💻',
-    description: 'Programación, soporte técnico',
+    description: 'Programación, soporte',
     color: 'bg-brand-50'
   },
   
@@ -84,13 +84,13 @@ const COMMUNITIES = [
   { 
     name: 'Educación & Formación', 
     icon: '🎓',
-    description: 'Clases, tutorías, talleres',
+    description: 'Clases, tutorías',
     color: 'bg-gray-50'
   },
   { 
     name: 'Cuidado & Acompañamiento', 
     icon: '💝',
-    description: 'Mascotas, adultos mayores, niños',
+    description: 'Mascotas, adultos mayores',
     color: 'bg-brand-50'
   },
   
@@ -98,13 +98,13 @@ const COMMUNITIES = [
   { 
     name: 'Emprendimiento-Empresa', 
     icon: '💼',
-    description: 'Consultoría, marketing, negocios',
+    description: 'Consultoría, marketing',
     color: 'bg-gray-50'
   },
   { 
     name: 'Legal & Trámites', 
     icon: '⚖️',
-    description: 'Abogados, gestoría, trámites',
+    description: 'Abogados, gestoría',
     color: 'bg-brand-50'
   },
   
@@ -112,7 +112,7 @@ const COMMUNITIES = [
   { 
     name: 'Experiencias & Ocio', 
     icon: '🎉',
-    description: 'Eventos, turismo, entretenimiento',
+    description: 'Eventos, entretenimiento',
     color: 'bg-gray-50'
   }
 ];
@@ -123,7 +123,6 @@ export default function Home() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     loadServices();
@@ -140,54 +139,15 @@ export default function Home() {
     }
   };
 
-  const handleCategoryClick = (categoryName) => {
-    setSelectedCategory(categoryName);
-    setSearchTerm(''); // Limpiar búsqueda al seleccionar categoría
-    
-    // Scroll suave a la sección de servicios
-    setTimeout(() => {
-      const servicesSection = document.getElementById('services-section');
-      if (servicesSection) {
-        servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
-  };
-
-  const handleServiceClick = (serviceId) => {
-    navigate(`/service/${serviceId}`);
+  const handleCommunityClick = (communityName) => {
+    navigate(`/community/${encodeURIComponent(communityName)}`);
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      setSelectedCategory(null); // Limpiar filtro de categoría al buscar
-    }
+    // Implementar búsqueda después
+    console.log('Buscar:', searchTerm);
   };
-
-  const clearFilters = () => {
-    setSearchTerm('');
-    setSelectedCategory(null);
-  };
-
-  // Filtrar servicios por búsqueda o categoría
-  const filteredServices = services.filter(service => {
-    // Si hay categoría seleccionada, filtrar por categoría
-    if (selectedCategory) {
-      return service.category === selectedCategory;
-    }
-    
-    // Si hay término de búsqueda, filtrar por búsqueda
-    if (searchTerm) {
-      return (
-        service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.category.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    // Si no hay filtros, mostrar todos
-    return true;
-  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -204,9 +164,9 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Search Bar + Publish Button */}
-        <div className="mb-8 flex gap-4 items-center">
-          <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
+        {/* Search Bar */}
+        <div className="mb-8">
+          <form onSubmit={handleSearch} className="max-w-2xl">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
@@ -218,148 +178,59 @@ export default function Home() {
               />
             </div>
           </form>
-          
-          <button
-            onClick={() => navigate('/create-service')}
-            className="bg-brand-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-brand-700 transition-colors flex items-center gap-2 shadow-md hover:shadow-lg whitespace-nowrap"
-          >
-            <Plus size={20} />
-            Publicar Servicio
-          </button>
         </div>
 
-        {/* Communities Grid */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Explora por Categorías
-          </h2>
+        {/* Communities Section */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Explora por Categorías
+            </h2>
+            <button
+              onClick={() => navigate('/create-service')}
+              className="bg-brand-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-700 transition-colors flex items-center gap-2 shadow-md hover:shadow-lg"
+            >
+              <Plus size={20} />
+              Publicar Servicio
+            </button>
+          </div>
           
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {COMMUNITIES.map((community) => {
                 const communityServices = services.filter(s => s.category === community.name);
-                const isSelected = selectedCategory === community.name;
                 
                 return (
                   <div
                     key={community.name}
-                    onClick={() => handleCategoryClick(community.name)}
-                    className={`bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group border-2 ${
-                      isSelected ? 'border-brand-600' : 'border-gray-100 hover:border-brand-500'
-                    }`}
+                    onClick={() => handleCommunityClick(community.name)}
+                    className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group border border-gray-100 hover:border-brand-500"
                   >
-                    <div className={`${community.color} p-8 text-center ${
-                      isSelected ? 'bg-brand-100' : 'group-hover:bg-brand-100'
-                    } transition-colors duration-300`}>
-                      <div className="text-6xl mb-2 group-hover:scale-110 transition-transform duration-300">
+                    <div className={`${community.color} p-6 text-center group-hover:bg-brand-100 transition-colors duration-300`}>
+                      <div className="text-5xl mb-1 group-hover:scale-110 transition-transform duration-300">
                         {community.icon}
                       </div>
                     </div>
-                    <div className="p-5">
-                      <h3 className={`font-bold mb-2 text-center transition-colors ${
-                        isSelected ? 'text-brand-600' : 'text-gray-900 group-hover:text-brand-600'
-                      }`}>
+                    <div className="p-3">
+                      <h3 className="font-bold text-gray-900 text-sm text-center mb-1 group-hover:text-brand-600 transition-colors">
                         {community.name}
                       </h3>
-                      <p className="text-sm text-gray-600 text-center mb-3">
+                      <p className="text-xs text-gray-600 text-center mb-2 line-clamp-1">
                         {community.description}
                       </p>
                       <div className="text-center">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-                          isSelected 
-                            ? 'bg-brand-100 text-brand-700' 
-                            : 'bg-gray-100 text-gray-700 group-hover:bg-brand-100 group-hover:text-brand-700'
-                        }`}>
-                          {communityServices.length} {communityServices.length === 1 ? 'servicio' : 'servicios'}
+                        <span className="inline-block px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold group-hover:bg-brand-100 group-hover:text-brand-700 transition-colors">
+                          {communityServices.length}
                         </span>
                       </div>
                     </div>
                   </div>
                 );
               })}
-            </div>
-          )}
-        </div>
-
-        {/* Services Section */}
-        <div id="services-section">
-          {/* Active Filters */}
-          {(selectedCategory || searchTerm) && (
-            <div className="mb-6 flex items-center gap-3">
-              <span className="text-gray-600 font-medium">Filtrando por:</span>
-              {selectedCategory && (
-                <span className="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-semibold">
-                  {selectedCategory}
-                  <button onClick={clearFilters} className="hover:bg-brand-200 rounded-full p-1">
-                    <X size={14} />
-                  </button>
-                </span>
-              )}
-              {searchTerm && (
-                <span className="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-semibold">
-                  "{searchTerm}"
-                  <button onClick={clearFilters} className="hover:bg-brand-200 rounded-full p-1">
-                    <X size={14} />
-                  </button>
-                </span>
-              )}
-            </div>
-          )}
-
-          {filteredServices.length > 0 ? (
-            <>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                {selectedCategory 
-                  ? `Servicios de ${selectedCategory}` 
-                  : searchTerm 
-                    ? `Resultados para "${searchTerm}"` 
-                    : 'Todos los Servicios'}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredServices.map((service) => (
-                  <div
-                    key={service._id}
-                    onClick={() => handleServiceClick(service._id)}
-                    className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer p-6 border border-gray-100 hover:border-brand-500 group"
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="font-bold text-gray-900 flex-1 group-hover:text-brand-600 transition-colors">
-                        {service.title}
-                      </h3>
-                      <span className="bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm font-semibold whitespace-nowrap ml-2">
-                        {service.trueqqPrice} Trueqqs
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                      {service.description}
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      <span className="bg-gray-100 px-2 py-1 rounded">{service.category}</span>
-                      <span>⭐ {service.rating}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-600 text-lg mb-4">
-                {selectedCategory 
-                  ? `No hay servicios en la categoría "${selectedCategory}" todavía`
-                  : searchTerm 
-                    ? `No encontramos servicios para "${searchTerm}"`
-                    : 'No hay servicios disponibles'}
-              </p>
-              <button
-                onClick={clearFilters}
-                className="text-brand-600 hover:text-brand-700 font-semibold"
-              >
-                Ver todos los servicios
-              </button>
             </div>
           )}
         </div>
