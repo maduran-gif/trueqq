@@ -1,0 +1,17 @@
+# Variables de entorno
+.env
+backend/.env
+frontend/.env
+
+# Dependencias
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Archivos de sistema
+.DS_Store
+*.log
+
+# Archivos de build
+dist/
+build/
