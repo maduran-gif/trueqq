@@ -62,6 +62,8 @@ export const getTransactionReview = (transactionId) => API.get(`/reviews/transac
 // MENSAJES / CHAT
 // ============================================
 export const getMessages = (transactionId) => API.get(`/messages/${transactionId}`);
+export const sendMessage = (transactionId, content) => API.post('/messages', { transactionId, content });
+
 export default API;
 
 // ============================================

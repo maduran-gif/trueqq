@@ -3,6 +3,7 @@ const router = express.Router();
 const Transaction = require('../models/Transaction');
 const Service = require('../models/Service');
 const User = require('../models/User');
+const Message = require('../models/Message');
 const { protect } = require('../middleware/auth');
 const { createNotification } = require('./notifications');
 
@@ -81,6 +82,33 @@ router.post('/request', protect, async (req, res) => {
     // Actualizar estadísticas del servicio
     service.timesRequested += 1;
     await service.save();
+
+    // ============================================
+    // CREAR MENSAJES AUTOMÁTICOS
+    // ============================================
+    
+    // Mensaje 1: Del cliente al proveedor
+    await Message.create({
+      transaction: transaction._id,
+      sender: client._id,
+      senderName: client.name,
+      content: '¡Hola! Me interesa tu servicio. ¿Podrías darme más detalles sobre disponibilidad y lo que incluye?',
+      read: false
+    });
+
+    // Mensaje 2: Del proveedor al cliente
+    await Message.create({
+      transaction: transaction._id,
+      sender: provider._id,
+      senderName: provider.name,
+      content: '¡Gracias por tu interés! Cuéntame más sobre lo que necesitas y coordinamos los detalles. ¿Cuándo te vendría bien?',
+      read: false
+    });
+
+    // ============================================
+    // FIN DE MENSAJES AUTOMÁTICOS
+    // ============================================
+
     // Crear notificación para el proveedor
     await createNotification({
       user: provider._id,
